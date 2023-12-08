@@ -6,6 +6,8 @@ public class Room{
     private String name;
     private String description;
     private Room n,s,w,e; //of the same type to be consistent and be able to access currentRoom.north maybe then
+    private Room currentRoom;
+    private Room nextRoom;
     private ArrayList<Room> map= new ArrayList<>();
     public Room(String name, String aDescription) {
         this.name = name;
@@ -73,5 +75,21 @@ public class Room{
 
     public void setMap(ArrayList<Room> map) {
         this.map = map;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public Room getNextRoom() {
+        return nextRoom;
+    }
+
+    public void setNextRoom(Room nextRoom) {
+        this.nextRoom = nextRoom;
     }
 }
