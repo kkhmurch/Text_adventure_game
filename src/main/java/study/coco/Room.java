@@ -1,6 +1,7 @@
 package study.coco;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Room{
     private String name;
@@ -8,7 +9,8 @@ public class Room{
     private Room n,s,w,e; //of the same type to be consistent and be able to access currentRoom.north maybe then
     private Room currentRoom;
     private Room nextRoom;
-    private ArrayList<Room> map= new ArrayList<>();
+    private ArrayList<Room> map= new ArrayList<>(); // TODO: add locations to the map
+    public List<Artefact> locationItems = new ArrayList<>();
     public Room(String name, String aDescription) {
         this.name = name;
         this.description=aDescription;
@@ -20,6 +22,18 @@ public class Room{
         this.e= e;
         this.s = s;
     }
+//    public void displayRoomItems(){
+//        if (!locationItems.isEmpty()){
+//            System.out.println("Items in the room: ");
+//            for(Artefact item : locationItems){
+//                System.out.println(item.name);
+//            }
+//        }else {
+//            System.out.println("empty room.");
+//        }
+//    }
+
+
 
     public String getName() {
         return name;
@@ -87,9 +101,11 @@ public class Room{
 
     public Room getNextRoom() {
         return nextRoom;
+
     }
 
     public void setNextRoom(Room nextRoom) {
         this.nextRoom = nextRoom;
     }
+
 }

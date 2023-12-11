@@ -1,17 +1,21 @@
 package study.coco;
 
+import java.util.ArrayList;
+
 public class Player{
     Room currentRoom;
     Room nextRoom;
 
 
+
     public Player(Room currentRoom) {
         this.currentRoom= currentRoom;
+
 
     }
 
     public void go(String direction){
-        nextRoom = null;
+       // nextRoom = null;
 
         switch(direction){
             case "n":
@@ -26,15 +30,20 @@ public class Player{
             case "e":
                 nextRoom = currentRoom.getE();
                 break;
+            case "enter":
+                nextRoom =currentRoom.getN();
             default:
                 System.out.println("Invalid direction.");
                 return;
         }
 
         if(nextRoom != null){
+            currentRoom = nextRoom;
             System.out.println(" You are in " + currentRoom.getName());
             System.out.println(currentRoom.getDescription());
-            currentRoom = nextRoom;
+
+
+
         }else{
             System.out.println("You cannot go that way.");
         }
