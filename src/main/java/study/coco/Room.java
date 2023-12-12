@@ -10,7 +10,7 @@ public class Room{
     private Room currentRoom;
     private Room nextRoom;
     private ArrayList<Room> map= new ArrayList<>(); // TODO: add locations to the map
-    public List<Artefact> locationItems = new ArrayList<>();
+    public ArrayList<Artefact> allItems = new ArrayList<>();
     public Room(String name, String aDescription) {
         this.name = name;
         this.description=aDescription;
@@ -22,18 +22,17 @@ public class Room{
         this.e= e;
         this.s = s;
     }
-//    public void displayRoomItems(){
-//        if (!locationItems.isEmpty()){
-//            System.out.println("Items in the room: ");
-//            for(Artefact item : locationItems){
-//                System.out.println(item.name);
-//            }
-//        }else {
-//            System.out.println("empty room.");
-//        }
-//    }
 
-
+    public void showLocationItems(){
+        if (!allItems.isEmpty()){
+            for (Artefact i : allItems){
+                System.out.println("are in front of you");
+                System.out.println(i.getName());
+            }
+        }else{
+            System.out.println("nothing was found");
+        }
+    }
 
     public String getName() {
         return name;

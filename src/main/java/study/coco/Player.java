@@ -3,7 +3,7 @@ package study.coco;
 import java.util.ArrayList;
 
 public class Player{
-    Room currentRoom;
+    private Room currentRoom;
     Room nextRoom;
 
 
@@ -20,6 +20,7 @@ public class Player{
         switch(direction){
             case "n":
                 nextRoom = currentRoom.getN();
+                System.out.println(currentRoom.allItems);
                 break;
             case "w":
                 nextRoom = currentRoom.getW();
@@ -32,6 +33,8 @@ public class Player{
                 break;
             case "enter":
                 nextRoom =currentRoom.getN();
+            case "examine":
+
             default:
                 System.out.println("Invalid direction.");
                 return;
@@ -47,5 +50,6 @@ public class Player{
         }else{
             System.out.println("You cannot go that way.");
         }
+
     }
 }

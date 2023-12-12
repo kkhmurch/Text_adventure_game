@@ -40,31 +40,18 @@ public class Game {
         doorstep.connectRooms(entranceHall,null,null,null);
         street.connectRooms(doorstep,null,null,null);
 
-
-
         Artefact coat = new Artefact("coat");
         Artefact book = new Artefact("book");
         Artefact poem = new Artefact("poem");
         Artefact note = new Artefact("afterdeath note");
 
-        ArrayList<Artefact> itemsEntranceHall = new ArrayList<>();
-        itemsEntranceHall.add(coat);
-        itemsEntranceHall.forEach(artifact -> System.out.println("items in the Entrance hall: " + artifact.getName()));
-
-        ArrayList<Artefact> itemsCorridor = new ArrayList<>();
-        itemsCorridor.add(book);
-        itemsCorridor.forEach(artefact -> System.out.println("items in the corridor: " + artefact.getName()));
-
-        ArrayList<Artefact> itemsGuestRoom = new ArrayList<>();
-        itemsGuestRoom.add(note);
-        itemsGuestRoom.forEach(artefact -> System.out.println("items in the guest room: "+ artefact.getName()));
-
-        ArrayList<Artefact> itemsLibrary = new ArrayList<>();
-        itemsLibrary.add(poem);
-        itemsLibrary.forEach(artefact -> System.out.println("items in the library: " + artefact.getName()));
+        entranceHall.allItems.add(coat);
+        corridor.allItems.add(book);
+        guestRoom.allItems.add(note);
+        library.allItems.add(poem);
 
 
-        //ArrayList<Artefact> foundItems = new ArrayList<>();
+        ArrayList<Artefact> foundItems = new ArrayList<>();
 
 
 
