@@ -1,7 +1,6 @@
 package study.coco;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Room{
     private String name;
@@ -23,7 +22,7 @@ public class Room{
         this.s = s;
     }
 
-    public void showLocationItems(){
+    public String showLocationItems(){
         if (!allItems.isEmpty()){
             for (Artefact i : allItems){
                 System.out.println("are in front of you");
@@ -32,6 +31,7 @@ public class Room{
         }else{
             System.out.println("nothing was found");
         }
+        return null;
     }
 
     public String getName() {

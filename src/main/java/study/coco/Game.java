@@ -5,11 +5,10 @@ import java.util.Scanner;
 
 
 public class Game {
-     Game game = new Game();
-
 
     //main method
     public static void main(String[] args) {
+        Game game = new Game();
 
         System.out.println( "The game is set in 1930s Leningrad, within the Soviet Union. \n " +
                 "Your mission, as a law-abiding investigator, is to conduct a ransacking in the former palace of Count Sheremetev, now repurposed into a communal apartment building. \n " +
@@ -53,17 +52,37 @@ public class Game {
 
         ArrayList<Artefact> foundItems = new ArrayList<>();
 
-
-
-
         Scanner scanner = new Scanner(System.in);
         Player player = new Player(street);
 
-        // functions a step ahead in directions
-        do {
+
+        while (true) {
             String input = scanner.nextLine();
-            player.go(input);
-        } while (true);
+
+            if(input.equals("examine")) {
+                System.out.println("you have found: ");
+                player.nextRoom.showLocationItems();
+                if (!player.currentRoom.allItems.isEmpty()) {
+                    System.out.println("Press enter to think about your sanity... ");
+                    String leerSpace = scanner.nextLine().toLowerCase();
+                    System.out.println(Thoughts.thought1); // TODO: add gradation of thoughts according to the amount of picked items
+                } else {
+                    System.out.println("move forward.");
+                }
+                continue;
+            }if(input.startsWith("take ")){
+                String itemName = input.substring(5);
+                player.take(itemName);
+                continue;
+//            }if (input.startsWith("drop ")){
+//                String itemName = input.substring(5);
+//                player.inventory.remove(itemName);
+//                continue;
+            }
+
+        player.go(input);
+        }
+
 
     }
 }
