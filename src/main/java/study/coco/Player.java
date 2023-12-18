@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
     public Room currentRoom;
     public Room nextRoom;
+    public String lastAction;
     ArrayList<Artefact> inventory= new ArrayList<>();
 
 
@@ -35,9 +36,6 @@ public class Player {
             case "enter":
                 nextRoom = currentRoom.getN();
                 break;
-            case "inventory":
-                System.out.println(inventory);
-                break;
             default:
                 System.out.println("Invalid command.");
                 return;
@@ -60,16 +58,31 @@ public class Player {
         for (Artefact item : currentRoom.allItems){
             if (item.getName().equalsIgnoreCase(itemName)){
                 itemToTake=item;
+                lastAction = "take";
                 break;
             }
         }
         if(itemToTake!=null){
             currentRoom.allItems.remove(itemToTake);
             inventory.add(itemToTake);
-            System.out.println("You have taken "+ itemToTake.getName() + ".");
+            System.out.println("You have taken "+ itemToTake.getName() + "." + "move to the next room. ");
         }else{
             System.out.println("No such object in the room. ");
         }
     }
+    public void leave(String itemName) {
+        Room currentRoom = this.currentRoom;
+        Artefact itemToLeave = null;
 
+        for (Artefact item : currentRoom.allItems) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                itemToLeave = item;
+                System.out.println("You have acted within your dignity. Attention. It might be dangerous. ");
+                lastAction = "leave";
+            }
+        }
+        if(itemToLeave == null){
+            System.out.println("No such object in the room");
+        }
+    }
 }
