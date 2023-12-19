@@ -1,8 +1,8 @@
 package study.coco;
+import org.fusesource.jansi.Ansi;
+import static org.fusesource.jansi.Ansi.Attribute.ITALIC;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 
 public class Game {
 
@@ -10,16 +10,20 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
 
-        System.out.println("The game is set in 1930s Leningrad, within the Soviet Union. \n " +
-                "Your mission, as a law-abiding investigator, is to conduct a ransacking in the former palace of Count Sheremetev, now repurposed into a communal apartment building. \n " +
-                "During the search you will have to decide on the suspicious objects encounter, determining whether there is enough evidence to arrest the person and send them into prison for committing a crime against the state.\n" +
-                "In these years, the country is on the path to an ideal society where art serves the masses, and dissent is prosecuted.\n " +
-                "You are a guardian of order, and your work is aimed at maintaining public safety and identifying those who might disrupt the harmony of the new world.\n " +
-                "Considerable power rests in your arms; every day you make decisions that shape human destinies, a responsibility that is highly rewarding and praised by the people above you.\n" +
-                "In your position you are required to follow the state’s general course: \n" +
-                "Be friends and help your comrade, report enemies and wrongdoers! Go ahead and be conciderate.");
 
-        System.out.println("type enter to enter the building");
+        System.out.println( """
+                The game is set in 1930s Leningrad, within the Soviet Union.
+                Your mission, as a law-abiding investigator, is to conduct a ransacking in the former palace of Count Sheremetev, now repurposed into a communal apartment building.
+                During the search you will have to decide on the suspicious objects encounter, determining whether there is enough evidence to arrest the person and send them into
+                prison for committing a crime against the state. In these years, the country is on the path to an ideal society where art serves the masses, and dissent is prosecuted.
+                You are a guardian of order, and your work is aimed at maintaining public safety and identifying those who might disrupt the harmony of the new world. Considerable power
+                rests in your arms; every day you make decisions that shape human destinies, a responsibility that is highly rewarding and praised by the people above you.
+                In your position you are required to follow the state’s general course: """);
+        System.out.println(Ansi.ansi().a(ITALIC).a("Be friends and help your comrade, report enemies and wrongdoers! ").reset());
+        System.out.println ("Go ahead and be considerable.");
+
+
+        System.out.println("type "+Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
 
 
         Room entranceHall = new Room("Entrance Hall", "add description for the entrance hall here." + "examine the room");
