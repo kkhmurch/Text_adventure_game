@@ -61,14 +61,18 @@ public class Game {
             String input = scanner.nextLine();
 
             if (input.equals("examine")) {
-                System.out.println("you have found: ");
+                System.out.print("You have found ");
                 player.nextRoom.showLocationItems();
                 if (!player.currentRoom.allItems.isEmpty()) {
                     System.out.println("Press enter to think about your sanity... ");
                     String leerSpace = scanner.nextLine().toLowerCase();
-                    if (player.inventory.isEmpty() & player.lastAction.equals( "take") || player.lastAction.equals(null)) { //throws exception when the last command doesnt exist
+                    if(player.inventory.isEmpty() & player.lastAction == null){
+                        System.out.println(Thoughts.thought1);
+                    } else if (player.inventory.isEmpty() & player.lastAction.equals( "take")) {
                         System.out.println(Thoughts.thought1);
                     } else if (player.inventory.isEmpty() && player.lastAction.equals("leave")) {
+                        System.out.println(Thoughts.thought5);
+                    } else if (player.inventory.isEmpty() && player.lastAction.equals("drop")) {
                         System.out.println(Thoughts.thought5);
                     } else if (player.inventory.size() == 1) {
                         if (player.lastAction.equals("leave")){
@@ -82,7 +86,7 @@ public class Game {
                         System.out.println(Thoughts.thought4);
                     }
                 } else {
-                    System.out.println("move forward.");
+                    System.out.println("Move forward. Choose the next direction.");
 
                 }
                 continue;
@@ -100,10 +104,12 @@ public class Game {
             }
             if (input.startsWith("drop ")) {
                 String itemNameToDrop = input.substring(5);
+                player.lastAction = "drop";
                 for (Artefact item : player.inventory) {
                     if (item.getName().equalsIgnoreCase(itemNameToDrop)) {
                         player.inventory.remove(item);
-                        System.out.println("You have dropped a " + item.getName());
+                        System.out.print("You have dropped a " + item.getName());
+                        System.out.println(" Move forward.");
                         break;
                     }
                 }

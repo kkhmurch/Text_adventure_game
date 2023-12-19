@@ -65,7 +65,7 @@ public class Player {
         if(itemToTake!=null){
             currentRoom.allItems.remove(itemToTake);
             inventory.add(itemToTake);
-            System.out.println("You have taken "+ itemToTake.getName() + "." + "move to the next room. ");
+            System.out.println("You have taken "+ itemToTake.getName() + "." + " Move to the next room. ");
         }else{
             System.out.println("No such object in the room. ");
         }
@@ -77,12 +77,14 @@ public class Player {
         for (Artefact item : currentRoom.allItems) {
             if (item.getName().equalsIgnoreCase(itemName)) {
                 itemToLeave = item;
-                System.out.println("You have acted within your dignity. Attention. It might be dangerous. ");
+                System.out.println("Attention. It might be dangerous. " + "Move forward. ");
                 lastAction = "leave";
+
             }
         }
         if(itemToLeave == null){
-            System.out.println("No such object in the room");
+            System.out.println("If you don't want to take the item, drop it and move forward.");
+
         }
     }
 }

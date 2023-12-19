@@ -25,11 +25,11 @@ public class Room{
     public String showLocationItems(){
         if (!allItems.isEmpty()){
             for (Artefact i : allItems){
-                System.out.println("are in front of you");
+               // System.out.println("are in front of you");
                 System.out.println(i.getName());
             }
         }else{
-            System.out.println("nothing was found");
+            System.out.println("nothing. ");
         }
         return null;
     }
