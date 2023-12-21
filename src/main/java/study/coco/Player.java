@@ -1,12 +1,16 @@
 package study.coco;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class Player {
     public Room currentRoom;
     public Room nextRoom;
     public String lastAction;
     ArrayList<Artefact> inventory= new ArrayList<>();
+    Map<String, Integer> decisionConsequence = new LinkedHashMap<>();
 
 
     public Player(Room currentRoom) {
@@ -65,6 +69,7 @@ public class Player {
         if(itemToTake!=null){
             currentRoom.allItems.remove(itemToTake);
             inventory.add(itemToTake);
+            decisionConsequence.put(itemToTake.getName(), 1);
             System.out.println("You have taken "+ itemToTake.getName() + "." + " Move to the next room. ");
         }else{
             System.out.println("No such object in the room. ");
@@ -79,6 +84,7 @@ public class Player {
                 itemToLeave = item;
                 System.out.println("Attention. It might be dangerous. " + "Move forward. ");
                 lastAction = "leave";
+                decisionConsequence.put(itemToLeave.getName(),0);
             }
         }
         if(itemToLeave == null){

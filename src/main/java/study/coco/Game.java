@@ -62,7 +62,7 @@ public class Game {
         street.connectRooms(doorstep, null, null, null);
 
         Artefact coat = new Artefact("coat", """
-                The coat stands out with precise tailoring—sharp shoulders and a trim waist, unlike the usual mass-produced outerwear in the USSR. Its origin hints at ties with the West, 
+                The coat stands out with precise tailoring— sharp shoulders and a trim waist, unlike the usual mass-produced outerwear in the USSR. Its origin hints at ties with the West, 
                 a potential concern for the state. The key question: Does this single piece of evidence warrant further action?""");
         Artefact book = new Artefact("book", """
                 Lost among dusty suitcases, a worn book titled "The Theory of Relativity" lies forgotten. The book questions the anti-"cosmopolitan" norms; it is censored and can hardly 
@@ -89,8 +89,6 @@ public class Game {
         guestRoom.allItems.add(note);
         annaRoom.allItems.add(poem);
 
-
-        ArrayList<Artefact> foundItems = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         Player player = new Player(street);
@@ -150,6 +148,7 @@ public class Game {
                 for (Artefact item : player.inventory) {
                     if (item.getName().equalsIgnoreCase(itemNameToDrop)) {
                         player.inventory.remove(item);
+                        player.decisionConsequence.put(itemNameToDrop, 0);
                         System.out.print("You have dropped a " + item.getName());
                         System.out.println(" Move forward.");
                         break;
@@ -164,6 +163,12 @@ public class Game {
                     }
                     continue;
                 }
+
+                if(input.startsWith("hashMap")){
+                    System.out.println(player.decisionConsequence);
+                    continue;
+                }
+
 
                 player.go(input);
             }
