@@ -93,20 +93,83 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         Player player = new Player(street);
 
+        int coatDecision = -1;
+        int bookDecision = -1;
+        int noteDecision = -1;
+        int poemDecision = -1;
 
         while (true) {
             String input = scanner.nextLine();
 
             if (input.equals("examine")) {
                 System.out.print("You have found ");
-                player.nextRoom.showLocationItems();
-                for (Artefact item: player.currentRoom.allItems){
-                    System.out.println(item.getaDescription());
-                }
-                if (!player.currentRoom.allItems.isEmpty()) {
-                    System.out.println(Ansi.ansi().a(ITALIC).a("Press enter to think about your sanity... ").reset());
-                    String leerSpace = scanner.nextLine().toLowerCase();
-                    if(player.inventory.isEmpty() & player.lastAction == null){
+                try {
+                    player.nextRoom.showLocationItems();
+                    for (Artefact item : player.currentRoom.allItems) {
+                        System.out.println(item.getaDescription());
+                    }
+                    if (!player.currentRoom.allItems.isEmpty()) {
+                        System.out.println(Ansi.ansi().a(ITALIC).a("Press enter to think about your sanity... ").reset());
+                        String leerSpace = scanner.nextLine().toLowerCase();
+
+                        if (player.decisionConsequence.isEmpty()) {
+                            System.out.println(Thoughts.thought1);
+                        } else if (player.decisionConsequence.size() == 1) {
+                            coatDecision = player.decisionConsequence.get("coat");
+                            if (coatDecision == 1) {
+                                System.out.println(Thoughts.thought2);
+                            } else if (coatDecision == 0) {
+                                System.out.println(Thoughts.thought3);
+                            }
+                        }else if(player.decisionConsequence.size()==2){
+                            bookDecision = player.decisionConsequence.get("book");
+                            if(coatDecision ==1){
+                                if(bookDecision ==1){
+                                    System.out.println(Thoughts.thought4);
+                                } else if (bookDecision ==0) {
+                                    System.out.println(Thoughts.thought5);
+                                }
+                            }else if(coatDecision==0){
+                                if(bookDecision ==1){
+                                    System.out.println(Thoughts.thought5);
+                                } else if (bookDecision ==0) {
+                                    System.out.println(Thoughts.thought4);
+                                }
+                            }
+                        }else if(player.decisionConsequence.size()==3) {
+                            noteDecision = player.decisionConsequence.get("afterdeath note");
+                            if (noteDecision == 0) {
+                                if (coatDecision == 1) {
+                                    if (bookDecision == 1) {
+                                        System.out.println(Thoughts.thought4);
+                                    } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought5);
+                                    }
+                                } else if (coatDecision == 0) {
+                                    if (bookDecision == 1) {
+                                        System.out.println(Thoughts.thought5);
+                                    } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought4);
+                                    }
+                                }
+                            }
+                        }else if(noteDecision==1) {
+                                if (coatDecision == 1) {
+                                    if (bookDecision == 1) {
+                                        System.out.println(Thoughts.thought4);
+                                    } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought5);
+                                    }
+                                } else if (coatDecision == 0) {
+                                    if (bookDecision == 1) {
+                                        System.out.println(Thoughts.thought5);
+                                    } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought4);
+                                    }
+                                }
+                        }
+
+                    /*if(player.inventory.isEmpty() & player.lastAction == null){
                         System.out.println(Thoughts.thought1);
                     } else if (player.inventory.isEmpty() & player.lastAction.equals( "take")) {
                         System.out.println(Thoughts.thought1);
@@ -124,14 +187,16 @@ public class Game {
                         System.out.println(Thoughts.thought3);
                     } else if (player.inventory.size() == 3) {
                         System.out.println(Thoughts.thought4);
+                    } */
+                    } else {
+                        System.out.println("Move forward. Choose the next direction.");
                     }
-                } else {
-                    System.out.println("Move forward. Choose the next direction.");
-
+                    continue;
+                } catch (NullPointerException e){
+                    System.out.println("do something different???????");
                 }
-                continue;
-
             }
+
             if (input.startsWith("take ")) {
                 String itemName = input.substring(5);
                 player.take(itemName);
@@ -167,9 +232,11 @@ public class Game {
             }
 
                 if (input.startsWith("inventory")) {
-                    for (Artefact item : player.inventory) {
-                        System.out.print(item.getName());
-                    }
+                    if (!player.inventory.isEmpty()){
+                        for (Artefact item : player.inventory) {
+                            System.out.print(item.getName());
+                        }
+                    }else{ System.out.println("Empty");}
                     continue;
                 }
 
