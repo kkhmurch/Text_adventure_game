@@ -145,14 +145,23 @@ public class Game {
             if (input.startsWith("drop ")) {
                 String itemNameToDrop = input.substring(5);
                 player.lastAction = "drop";
+
+                // Find the item in the inventory
+                Artefact itemToDrop = null;
                 for (Artefact item : player.inventory) {
                     if (item.getName().equalsIgnoreCase(itemNameToDrop)) {
-                        player.inventory.remove(item);
-                        player.decisionConsequence.put(itemNameToDrop, 0);
-                        System.out.print("You have dropped a " + item.getName());
-                        System.out.println(" Move forward.");
+                        itemToDrop = item;
                         break;
                     }
+                }
+
+                if (itemToDrop != null) {
+                    player.inventory.remove(itemToDrop);
+                    player.decisionConsequence.put(itemNameToDrop, 0);
+                    player.currentRoom.allItems.add(itemToDrop);
+                    System.out.println("You have dropped a " + itemToDrop.getName() + ". Move forward.");
+                } else {
+                    System.out.println("Item not found in your inventory.");
                 }
                 continue;
             }
