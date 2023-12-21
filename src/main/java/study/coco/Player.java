@@ -22,7 +22,6 @@ public class Player {
         switch (direction) {
             case "n":
                 nextRoom = currentRoom.getN();
-
                 break;
             case "w":
                 nextRoom = currentRoom.getW();
@@ -42,8 +41,9 @@ public class Player {
         }
         if (nextRoom != null) {
             currentRoom = nextRoom;
-            System.out.println(" You are in " + currentRoom.getName());
+            System.out.println("You are in " + currentRoom.getName()+ ".");
             System.out.println(currentRoom.getDescription());
+
 
 
         } else {
@@ -79,7 +79,6 @@ public class Player {
                 itemToLeave = item;
                 System.out.println("Attention. It might be dangerous. " + "Move forward. ");
                 lastAction = "leave";
-
             }
         }
         if(itemToLeave == null){

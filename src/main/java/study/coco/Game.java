@@ -26,33 +26,68 @@ public class Game {
         System.out.println("type "+Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
 
 
-        Room entranceHall = new Room("Entrance Hall", "add description for the entrance hall here." + "examine the room");
-        Room corridor = new Room("Corridor", "add description for the corridor here." + "examine the room");
-        Room guestRoom = new Room("Guest Room", "add description for the guest room here." + "examine the room");
-        Room library = new Room("Library", "add description for the library here." + "examine the room");
-        Room doorstep = new Room("Doorstep", "Description of the house in general, ladder, doorstep.\n " +
-                "Focus on remnants of the aristocratic past of the house, and the present impoverment.\n " +
-                "Intro about the inhabitants and the life incidents that brought her to lend here.\n " +
-                "Foster a feeling of mystery and intelligent people of subtle spiritual organisation.\n " +
-                "hint: after entering every room you have to examine it. type examine");
+        Room entranceHall = new Room("Entrance Hall", """
+                A coat rack, umbrella stand, tall mirror – a typical setting for the entrance hall in the apartment of St. Petersburg intellectuals. The standout piece is a decorative 
+                chest in the corner; its dark, wooden finish beautifully contrasts with the dusty green walls, the windows deftly absorb the last rays of the setting sun, leaving 
+                a lingering haze in the room.
+                """ + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+        Room corridor = new Room("Corridor", """
+        The corridor, once a busy servant's passage, extends through the remnants of the grand house. Abandoned suitcases and overlooked items clutter the space, narrating stories 
+        of political emigration and sudden painful goodbyes. Perhaps one of those suitcases was given to A. Akhmatova by a friend, hoping she would join him in the pursuit of a safer 
+        life abroad. However, she made the decision to stay.\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+        Room guestRoom = new Room("Guest Room", """
+        In the guest room, you find a writing desk covered in papers, a wooden closet full of books and artworks, and a velvet sofa. The stove is still warm after burning the photos 
+        and documents the night before. The pile of papers on the desk draws your attention...\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+        Room annaRoom = new Room("the room of Anna Akhmatova", """
+                In her simple and old room, there's a big bed with a red cover and an embroidered pillow. There's also a chair with no leg, but it stands steady with books underneath.\n"""  +
+                Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+        Room doorstep = new Room("Doorstep", """
+                You approach a dilapidated aristocratic house that lines the embankment of the Fontanka River. Stepping through the ornate iron fence with wide gates, you find 
+                yourself in the depths of the courtyard. Upon entering the house, an admirable interior unfolds before you: the ceilings soar towards the heavens, but the paint 
+                peels from the walls. A staircase, once used for welcoming guests in elaborate grand dresses, now stands decrepit. Taking the stairs leads you to a wide doorway 
+                of a southwest wing, and after a while, you find yourself in front of the door of the repurposed communal 8-room apartment.
+                Amidst the worn-out elegance, the remnants of a bygone era intermingle with the fear of a new reality. On the doorstep, you notice a small window from the corridor, 
+                and a pair of scared yet curious children's eyes glancing at you. Rare is the parent who does not ask their child to check who is knocking, as a presequitor could appear 
+                at any moment, accusing you or your relatives of a crime you had no hand in. You knock on the door, and after a few moments, it swings open. There is a chain on the door, 
+                a symbol of resilience against uncertain times.
+                A prominent Russian poet Anna Akhmatova stays on the doorstep. The Fountain House provided her with a place of refuge during this tumultuous period.\n"""+
+                Ansi.ansi().a(ITALIC).a("Choose the direction to move forward. ").reset());
         Room street = new Room("Street", "........");
 
         entranceHall.connectRooms(corridor, null, null, null);
         corridor.connectRooms(null, guestRoom, null, null);
-        guestRoom.connectRooms(null, null, corridor, library);
-        library.connectRooms(guestRoom, null, null, null);
+        guestRoom.connectRooms(null, null, corridor, annaRoom);
+        annaRoom.connectRooms(guestRoom, null, null, null);
         doorstep.connectRooms(entranceHall, null, null, null);
         street.connectRooms(doorstep, null, null, null);
 
-        Artefact coat = new Artefact("coat");
-        Artefact book = new Artefact("book");
-        Artefact poem = new Artefact("poem");
-        Artefact note = new Artefact("afterdeath note");
+        Artefact coat = new Artefact("coat", """
+                The coat stands out with precise tailoring—sharp shoulders and a trim waist, unlike the usual mass-produced outerwear in the USSR. Its origin hints at ties with the West, 
+                a potential concern for the state. The key question: Does this single piece of evidence warrant further action?""");
+        Artefact book = new Artefact("book", """
+                Lost among dusty suitcases, a worn book titled "The Theory of Relativity" lies forgotten. The book questions the anti-"cosmopolitan" norms; it is censored and can hardly 
+                be found in the Soviet Union, even in private collections.""");
+        Artefact poem = new Artefact("poem", Ansi.ansi().a(ITALIC).a("""
+                "…Mountains fall before this grief,
+                A mighty river stops its flow,
+                But prison doors stay firmly bolted…"\n
+                """).reset() + """ 
+                This is a piece of poem written by Anna Akhmatova. The text reflects the suffering of the Russian people during the era of Joseph Stalin's Great Purge. It is a personal 
+                response to the political repression, arrests, and executions that affected Akhmatova and her family.
+                """);
+        Artefact note = new Artefact("afterdeath note", Ansi.ansi().a(ITALIC).a("""
+        Anja, forgive me. But it would have been worse further on. I am seriously ill—this is not really me. 
+        I love you madly. Understand that I could no longer go on living. Convey to Dad and Ale, if you see them, 
+        that I loved them until the last minute. And explain that I reached a dead end.\n
+        """).reset() + """
+        Marina Tsvetaeva, another prominent and persecuted author, escaped from prison abroad but later, upon the call of her heart, returned and committed suicide. Her relatives and 
+        close associates were also behind bars due to their support of her creative work. Nobody knew about the relationship between Marina and Anna; the note proves that they were close.
+        """);
 
         entranceHall.allItems.add(coat);
         corridor.allItems.add(book);
         guestRoom.allItems.add(note);
-        library.allItems.add(poem);
+        annaRoom.allItems.add(poem);
 
 
         ArrayList<Artefact> foundItems = new ArrayList<>();
@@ -67,8 +102,11 @@ public class Game {
             if (input.equals("examine")) {
                 System.out.print("You have found ");
                 player.nextRoom.showLocationItems();
+                for (Artefact item: player.currentRoom.allItems){
+                    System.out.println(item.getaDescription());
+                }
                 if (!player.currentRoom.allItems.isEmpty()) {
-                    System.out.println("Press enter to think about your sanity... ");
+                    System.out.println(Ansi.ansi().a(ITALIC).a("Press enter to think about your sanity... ").reset());
                     String leerSpace = scanner.nextLine().toLowerCase();
                     if(player.inventory.isEmpty() & player.lastAction == null){
                         System.out.println(Thoughts.thought1);
