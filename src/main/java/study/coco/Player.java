@@ -82,7 +82,7 @@ public class Player {
         for (Artefact item : currentRoom.allItems) {
             if (item.getName().equalsIgnoreCase(itemName)) {
                 itemToLeave = item;
-                System.out.println("Attention. It might be dangerous. " + "Move forward. ");
+                System.out.println("Attention. It might be dangerous. With every left item your personal arrest is getting closer. " + "Move forward, choose the next direction. ");
                 lastAction = "leave";
                 decisionConsequence.put(itemToLeave.getName(),0);
             }

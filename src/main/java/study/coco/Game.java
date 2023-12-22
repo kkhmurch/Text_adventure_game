@@ -55,7 +55,7 @@ public class Game {
         Room street = new Room("Street", "........");
 
         entranceHall.connectRooms(corridor, null, null, null);
-        corridor.connectRooms(null, guestRoom, null, null);
+        corridor.connectRooms(null, guestRoom, null, entranceHall);
         guestRoom.connectRooms(null, null, corridor, annaRoom);
         annaRoom.connectRooms(guestRoom, null, null, null);
         doorstep.connectRooms(entranceHall, null, null, null);
@@ -113,27 +113,27 @@ public class Game {
                         String leerSpace = scanner.nextLine().toLowerCase();
 
                         if (player.decisionConsequence.isEmpty()) {
-                            System.out.println(Thoughts.thought1);
+                            System.out.println(Thoughts.thought2);
                         } else if (player.decisionConsequence.size() == 1) {
                             coatDecision = player.decisionConsequence.get("coat");
                             if (coatDecision == 1) {
-                                System.out.println(Thoughts.thought2);
+                                System.out.println(Thoughts.thought1);
                             } else if (coatDecision == 0) {
-                                System.out.println(Thoughts.thought3);
+                                System.out.println(Thoughts.thought5);
                             }
                         }else if(player.decisionConsequence.size()==2){
                             bookDecision = player.decisionConsequence.get("book");
                             if(coatDecision ==1){
                                 if(bookDecision ==1){
-                                    System.out.println(Thoughts.thought4);
+                                    System.out.println(Thoughts.thought7);
                                 } else if (bookDecision ==0) {
-                                    System.out.println(Thoughts.thought5);
+                                    System.out.println(Thoughts.thought7);
                                 }
                             }else if(coatDecision==0){
                                 if(bookDecision ==1){
-                                    System.out.println(Thoughts.thought5);
+                                    System.out.println(Thoughts.thought7);
                                 } else if (bookDecision ==0) {
-                                    System.out.println(Thoughts.thought4);
+                                    System.out.println(Thoughts.thought7);
                                 }
                             }
                         }else if(player.decisionConsequence.size()==3) {
@@ -143,57 +143,39 @@ public class Game {
                                     if (bookDecision == 1) {
                                         System.out.println(Thoughts.thought4);
                                     } else if (bookDecision == 0) {
-                                        System.out.println(Thoughts.thought5);
+                                        System.out.println(Thoughts.thought3);
                                     }
                                 } else if (coatDecision == 0) {
                                     if (bookDecision == 1) {
-                                        System.out.println(Thoughts.thought5);
+                                        System.out.println(Thoughts.thought10);
                                     } else if (bookDecision == 0) {
-                                        System.out.println(Thoughts.thought4);
+                                        System.out.println(Thoughts.thought10);
+                                    }
+
+                            }
+                            }else if(noteDecision==1) {
+                                if (coatDecision == 1) {
+                                   if (bookDecision == 1) {
+                                      System.out.println(Thoughts.thought3);
+                                 } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought10);
+                                   }
+                                } else if (coatDecision == 0) {
+                                    if (bookDecision == 1) {
+                                      System.out.println(Thoughts.thought3);
+                                 } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought3);
                                     }
                                 }
                             }
-                        }else if(noteDecision==1) {
-                                if (coatDecision == 1) {
-                                    if (bookDecision == 1) {
-                                        System.out.println(Thoughts.thought4);
-                                    } else if (bookDecision == 0) {
-                                        System.out.println(Thoughts.thought5);
-                                    }
-                                } else if (coatDecision == 0) {
-                                    if (bookDecision == 1) {
-                                        System.out.println(Thoughts.thought5);
-                                    } else if (bookDecision == 0) {
-                                        System.out.println(Thoughts.thought4);
-                                    }
-                                }
                         }
 
-                    /*if(player.inventory.isEmpty() & player.lastAction == null){
-                        System.out.println(Thoughts.thought1);
-                    } else if (player.inventory.isEmpty() & player.lastAction.equals( "take")) {
-                        System.out.println(Thoughts.thought1);
-                    } else if (player.inventory.isEmpty() && player.lastAction.equals("leave")) {
-                        System.out.println(Thoughts.thought5);
-                    } else if (player.inventory.isEmpty() && player.lastAction.equals("drop")) {
-                        System.out.println(Thoughts.thought5);
-                    } else if (player.inventory.size() == 1) {
-                        if (player.lastAction.equals("leave")){
-                            System.out.println(Thoughts.thought5);
-                        } else if (player.lastAction.equals("take")){
-                            System.out.println(Thoughts.thought2);
-                        }
-                    } else if (player.inventory.size() == 2) {
-                        System.out.println(Thoughts.thought3);
-                    } else if (player.inventory.size() == 3) {
-                        System.out.println(Thoughts.thought4);
-                    } */
                     } else {
                         System.out.println("Move forward. Choose the next direction.");
                     }
                     continue;
                 } catch (NullPointerException e){
-                    System.out.println("do something different???????");
+                    System.out.println("get back to the room where you didn't decide on the item and make your mind.");
                 }
             }
 
