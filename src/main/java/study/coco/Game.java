@@ -11,7 +11,7 @@ public class Game {
         Game game = new Game();
 
 
-        System.out.println( """
+        System.out.println("""
                 The game is set in 1930s Leningrad, within the Soviet Union.
                 Your mission, as a law-abiding investigator, is to conduct a ransacking in the former palace of Count Sheremetev, now repurposed into a communal apartment building.
                 During the search you will have to decide on the suspicious objects encounter, determining whether there is enough evidence to arrest the person and send them into
@@ -20,10 +20,10 @@ public class Game {
                 rests in your arms; every day you make decisions that shape human destinies, a responsibility that is highly rewarding and praised by the people above you.
                 In your position you are required to follow the state’s general course: """);
         System.out.println(Ansi.ansi().a(ITALIC).a("Be friends and help your comrade, report enemies and wrongdoers! ").reset());
-        System.out.println ("Go ahead and be considerable.");
+        System.out.println("Go ahead and be considerable.");
 
 
-        System.out.println("type "+Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
+        System.out.println("type " + Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
 
 
         Room entranceHall = new Room("Entrance Hall", """
@@ -32,14 +32,14 @@ public class Game {
                 a lingering haze in the room.
                 """ + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
         Room corridor = new Room("Corridor", """
-        The corridor, once a busy servant's passage, extends through the remnants of the grand house. Abandoned suitcases and overlooked items clutter the space, narrating stories 
-        of political emigration and sudden painful goodbyes. Perhaps one of those suitcases was given to A. Akhmatova by a friend, hoping she would join him in the pursuit of a safer 
-        life abroad. However, she made the decision to stay.\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+                The corridor, once a busy servant's passage, extends through the remnants of the grand house. Abandoned suitcases and overlooked items clutter the space, narrating stories 
+                of political emigration and sudden painful goodbyes. Perhaps one of those suitcases was given to A. Akhmatova by a friend, hoping she would join him in the pursuit of a safer 
+                life abroad. However, she made the decision to stay.\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
         Room guestRoom = new Room("Guest Room", """
-        In the guest room, you find a writing desk covered in papers, a wooden closet full of books and artworks, and a velvet sofa. The stove is still warm after burning the photos 
-        and documents the night before. The pile of papers on the desk draws your attention...\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
+                In the guest room, you find a writing desk covered in papers, a wooden closet full of books and artworks, and a velvet sofa. The stove is still warm after burning the photos 
+                and documents the night before. The pile of papers on the desk draws your attention...\n""" + Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
         Room annaRoom = new Room("the room of Anna Akhmatova", """
-                In her simple and old room, there's a big bed with a red cover and an embroidered pillow. There's also a chair with no leg, but it stands steady with books underneath.\n"""  +
+                In her simple and old room, there's a big bed with a red cover and an embroidered pillow. There's also a chair with no leg, but it stands steady with books underneath.\n""" +
                 Ansi.ansi().a(ITALIC).a("examine ").reset() + "the room");
         Room doorstep = new Room("Doorstep", """
                 You approach a dilapidated aristocratic house that lines the embankment of the Fontanka River. Stepping through the ornate iron fence with wide gates, you find 
@@ -50,7 +50,7 @@ public class Game {
                 and a pair of scared yet curious children's eyes glancing at you. Rare is the parent who does not ask their child to check who is knocking, as a presequitor could appear 
                 at any moment, accusing you or your relatives of a crime you had no hand in. You knock on the door, and after a few moments, it swings open. There is a chain on the door, 
                 a symbol of resilience against uncertain times.
-                A prominent Russian poet Anna Akhmatova stays on the doorstep. The Fountain House provided her with a place of refuge during this tumultuous period.\n"""+
+                A prominent Russian poet Anna Akhmatova stays on the doorstep. The Fountain House provided her with a place of refuge during this tumultuous period.\n""" +
                 Ansi.ansi().a(ITALIC).a("Choose the direction to move forward. ").reset());
         Room street = new Room("Street", "........");
 
@@ -76,13 +76,13 @@ public class Game {
                 response to the political repression, arrests, and executions that affected Akhmatova and her family.
                 """);
         Artefact note = new Artefact("afterdeath note", Ansi.ansi().a(ITALIC).a("""
-        Anja, forgive me. But it would have been worse further on. I am seriously ill—this is not really me. 
-        I love you madly. Understand that I could no longer go on living. Convey to Dad and Ale, if you see them, 
-        that I loved them until the last minute. And explain that I reached a dead end.\n
-        """).reset() + """
-        Marina Tsvetaeva, another prominent and persecuted author, escaped from prison abroad but later, upon the call of her heart, returned and committed suicide. Her relatives and 
-        close associates were also behind bars due to their support of her creative work. Nobody knew about the relationship between Marina and Anna; the note proves that they were close.
-        """);
+                Anja, forgive me. But it would have been worse further on. I am seriously ill—this is not really me. 
+                I love you madly. Understand that I could no longer go on living. Convey to Dad and Ale, if you see them, 
+                that I loved them until the last minute. And explain that I reached a dead end.\n
+                """).reset() + """
+                Marina Tsvetaeva, another prominent and persecuted author, escaped from prison abroad but later, upon the call of her heart, returned and committed suicide. Her relatives and 
+                close associates were also behind bars due to their support of her creative work. Nobody knew about the relationship between Marina and Anna; the note proves that they were close.
+                """);
 
         entranceHall.allItems.add(coat);
         corridor.allItems.add(book);
@@ -91,7 +91,8 @@ public class Game {
 
 
         Scanner scanner = new Scanner(System.in);
-        Player player = new Player(street);
+        Player player = new Player(street, game);
+
 
         int coatDecision = -1;
         int bookDecision = -1;
@@ -109,34 +110,35 @@ public class Game {
                         System.out.println(item.getaDescription());
                     }
                     if (!player.currentRoom.allItems.isEmpty()) {
+
                         System.out.println(Ansi.ansi().a(ITALIC).a("Press enter to think about your sanity... ").reset());
                         String leerSpace = scanner.nextLine().toLowerCase();
 
                         if (player.decisionConsequence.isEmpty()) {
                             System.out.println(Thoughts.thought2);
-                        } else if (player.decisionConsequence.size() == 1) {
+                        } else if ((player.decisionConsequence.size() == 1 && coat.isDecisionTaken())) {
                             coatDecision = player.decisionConsequence.get("coat");
                             if (coatDecision == 1) {
                                 System.out.println(Thoughts.thought1);
                             } else if (coatDecision == 0) {
                                 System.out.println(Thoughts.thought5);
                             }
-                        }else if(player.decisionConsequence.size()==2){
+                        } else if (player.decisionConsequence.size() == 2 && book.isDecisionTaken() && coat.isDecisionTaken()) {
                             bookDecision = player.decisionConsequence.get("book");
-                            if(coatDecision ==1){
-                                if(bookDecision ==1){
+                            if (coatDecision == 1) {
+                                if (bookDecision == 1) {
                                     System.out.println(Thoughts.thought7);
-                                } else if (bookDecision ==0) {
+                                } else if (bookDecision == 0) {
                                     System.out.println(Thoughts.thought7);
                                 }
-                            }else if(coatDecision==0){
-                                if(bookDecision ==1){
+                            } else if (coatDecision == 0) {
+                                if (bookDecision == 1) {
                                     System.out.println(Thoughts.thought7);
-                                } else if (bookDecision ==0) {
+                                } else if (bookDecision == 0) {
                                     System.out.println(Thoughts.thought7);
                                 }
                             }
-                        }else if(player.decisionConsequence.size()==3) {
+                        } else if (player.decisionConsequence.size() == 3 && coat.isDecisionTaken() && book.isDecisionTaken() && note.isDecisionTaken()) {
                             noteDecision = player.decisionConsequence.get("afterdeath note");
                             if (noteDecision == 0) {
                                 if (coatDecision == 1) {
@@ -152,29 +154,32 @@ public class Game {
                                         System.out.println(Thoughts.thought10);
                                     }
 
-                            }
-                            }else if(noteDecision==1) {
+                                }
+                            } else if (noteDecision == 1) {
                                 if (coatDecision == 1) {
-                                   if (bookDecision == 1) {
-                                      System.out.println(Thoughts.thought3);
-                                 } else if (bookDecision == 0) {
+                                    if (bookDecision == 1) {
+                                        System.out.println(Thoughts.thought3);
+                                    } else if (bookDecision == 0) {
                                         System.out.println(Thoughts.thought10);
-                                   }
+                                    }
                                 } else if (coatDecision == 0) {
                                     if (bookDecision == 1) {
-                                      System.out.println(Thoughts.thought3);
-                                 } else if (bookDecision == 0) {
+                                        System.out.println(Thoughts.thought3);
+                                    } else if (bookDecision == 0) {
                                         System.out.println(Thoughts.thought3);
                                     }
                                 }
                             }
+                        } else {
+                            System.out.println("get back to the room where you haven't taken a decision yet."); //TODO: take a decision firstly and then to move forward
                         }
 
-                    } else {
-                        System.out.println("Move forward. Choose the next direction.");
-                    }
+                        }else {
+                            System.out.println("Move forward. Choose the next direction.");
+                        }
+
                     continue;
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     System.out.println("get back to the room where you didn't decide on the item and make your mind.");
                 }
             }
@@ -182,11 +187,17 @@ public class Game {
             if (input.startsWith("take ")) {
                 String itemName = input.substring(5);
                 player.take(itemName);
+                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                    player.lastOutput();
+                }
                 continue;
             }
-            if (input.startsWith("leave ")){
+            if (input.startsWith("leave ")) {
                 String itemName = input.substring(6);
                 player.leave(itemName);
+                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                    player.lastOutput();
+                }
                 continue;
             }
             if (input.startsWith("drop ")) {
@@ -212,24 +223,42 @@ public class Game {
                 }
                 continue;
             }
-
-                if (input.startsWith("inventory")) {
-                    if (!player.inventory.isEmpty()){
-                        for (Artefact item : player.inventory) {
-                            System.out.print(item.getName());
-                        }
-                    }else{ System.out.println("Empty");}
-                    continue;
+            if (input.startsWith("inventory")) {
+                if (!player.inventory.isEmpty()) {
+                    for (Artefact item : player.inventory) {
+                        System.out.print(item.getName());
+                    }
+                } else {
+                    System.out.println("Empty");
                 }
-
-                if(input.startsWith("hashMap")){
-                    System.out.println(player.decisionConsequence);
-                    continue;
-                }
-
-
-                player.go(input);
+                continue;
             }
+            if (input.startsWith("hashMap")) {
+                System.out.println(player.decisionConsequence);
+                continue;
+            }
+//            if (input.startsWith("yes")) {
+//                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+//                    System.out.println("WON!!!");
+//                    continue;
+//                }
+//            }
+//            if (input.startsWith("no")) {
+//                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+//                    System.out.println("GAME OVER!!!");
+//                    continue;
+//                }
+//            }
+
+            player.go(input);
+
+
         }
+
     }
+
+}
+
+
+
 
