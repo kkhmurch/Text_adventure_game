@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 
 public class Player {
-    public Room currentRoom;
-    public Room nextRoom;
-    public String lastAction;
+    private Room currentRoom;
+    private Room nextRoom;
+    private String lastAction;
     ArrayList<Artefact> inventory= new ArrayList<>();
     Map<String, Integer> decisionConsequence = new LinkedHashMap<>();
     Game game;
@@ -49,7 +49,7 @@ public class Player {
         if (nextRoom != null) {
             currentRoom = nextRoom;
             System.out.println("You are in " + currentRoom.getName() + ".");
-            System.out.println(currentRoom.getDescription());
+            System.out.println(currentRoom.getaDescription());
 
 
 
@@ -120,4 +120,27 @@ public class Player {
 
     }
 
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public Room getNextRoom() {
+        return nextRoom;
+    }
+
+    public void setNextRoom(Room nextRoom) {
+        this.nextRoom = nextRoom;
+    }
+
+    public String getLastAction() {
+        return lastAction;
+    }
+
+    public void setLastAction(String lastAction) {
+        this.lastAction = lastAction;
+    }
 }

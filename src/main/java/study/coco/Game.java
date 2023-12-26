@@ -10,7 +10,7 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
 
-
+        //introduction
         System.out.println("""
                 The game is set in 1930s Leningrad, within the Soviet Union.
                 Your mission, as a law-abiding investigator, is to conduct a ransacking in the former palace of Count Sheremetev, now repurposed into a communal apartment building.
@@ -25,7 +25,7 @@ public class Game {
 
         System.out.println("type " + Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
 
-
+        //locations
         Room entranceHall = new Room("Entrance Hall", """
                 A coat rack, umbrella stand, tall mirror – a typical setting for the entrance hall in the apartment of St. Petersburg intellectuals. The standout piece is a decorative 
                 chest in the corner; its dark, wooden finish beautifully contrasts with the dusty green walls, the windows deftly absorb the last rays of the setting sun, leaving 
@@ -54,6 +54,7 @@ public class Game {
                 Ansi.ansi().a(ITALIC).a("Choose the direction to move forward. ").reset());
         Room street = new Room("Street", "........");
 
+        //connections
         entranceHall.connectRooms(corridor, null, null, null);
         corridor.connectRooms(null, guestRoom, null, entranceHall);
         guestRoom.connectRooms(null, null, corridor, annaRoom);
@@ -61,6 +62,7 @@ public class Game {
         doorstep.connectRooms(entranceHall, null, null, null);
         street.connectRooms(doorstep, null, null, null);
 
+        //artefacts and descriptions
         Artefact coat = new Artefact("coat", """
                 The coat stands out with precise tailoring— sharp shoulders and a trim waist, unlike the usual mass-produced outerwear in the USSR. Its origin hints at ties with the West, 
                 a potential concern for the state. The key question: Does this single piece of evidence warrant further action?""");
@@ -84,6 +86,7 @@ public class Game {
                 close associates were also behind bars due to their support of her creative work. Nobody knew about the relationship between Marina and Anna; the note proves that they were close.
                 """);
 
+        //adding artefacts to the appropriate rooms
         entranceHall.allItems.add(coat);
         corridor.allItems.add(book);
         guestRoom.allItems.add(note);
@@ -93,23 +96,24 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         Player player = new Player(street, game);
 
-
+        //default values to fill the hashMap of decisions
         int coatDecision = -1;
         int bookDecision = -1;
         int noteDecision = -1;
         int poemDecision = -1;
 
+        //think logic according to the previous decisions about the items
         while (true) {
             String input = scanner.nextLine();
 
             if (input.equals("examine")) {
                 System.out.print("You have found ");
                 try {
-                    player.nextRoom.showLocationItems();
-                    for (Artefact item : player.currentRoom.allItems) {
+                    player.getNextRoom().showLocationItems();
+                    for (Artefact item : player.getCurrentRoom().allItems) {
                         System.out.println(item.getaDescription());
                     }
-                    if (!player.currentRoom.allItems.isEmpty()) {
+                    if (!player.getCurrentRoom().allItems.isEmpty()) {
 
                         System.out.println(Ansi.ansi().a(ITALIC).a("Press enter to think about your sanity... ").reset());
                         String leerSpace = scanner.nextLine().toLowerCase();
@@ -186,7 +190,7 @@ public class Game {
             if (input.startsWith("t " )) {
                 String itemName = input.substring(2);
                 player.take(itemName);
-                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                if (player.getCurrentRoom().getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
                     player.lastOutput();
                 }
                 continue;
@@ -195,7 +199,7 @@ public class Game {
             if (input.startsWith("take " )) {
                 String itemName = input.substring(5);
                 player.take(itemName);
-                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                if (player.getCurrentRoom().getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
                     player.lastOutput();
                 }
                 continue;
@@ -204,7 +208,7 @@ public class Game {
             if (input.startsWith("l ")) {
                 String itemName = input.substring(2);
                 player.leave(itemName);
-                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                if (player.getCurrentRoom().getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
                     player.lastOutput();
                 }
                 continue;
@@ -213,14 +217,14 @@ public class Game {
             if (input.startsWith("leave ")) {
                 String itemName = input.substring(6);
                 player.leave(itemName);
-                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                if (player.getCurrentRoom().getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
                     player.lastOutput();
                 }
                 continue;
             }
             if (input.startsWith("drop ")) {
                 String itemNameToDrop = input.substring(5);
-                player.lastAction = "drop";
+                player.setLastAction("drop");
 
                 // Find the item in the inventory
                 Artefact itemToDrop = null;
@@ -234,7 +238,7 @@ public class Game {
                 if (itemToDrop != null) {
                     player.inventory.remove(itemToDrop);
                     player.decisionConsequence.put(itemNameToDrop, 0);
-                    player.currentRoom.allItems.add(itemToDrop);
+                    player.getCurrentRoom().allItems.add(itemToDrop);
                     System.out.println("You have dropped a " + itemToDrop.getName() + ". Move forward.");
                 } else {
                     System.out.println("Item not found in your inventory.");
@@ -243,7 +247,7 @@ public class Game {
             }
             if (input.startsWith("d ")) {
                 String itemNameToDrop = input.substring(2);
-                player.lastAction = "drop";
+                player.setLastAction("drop");
 
                 // Find the item in the inventory
                 Artefact itemToDrop = null;
@@ -257,7 +261,7 @@ public class Game {
                 if (itemToDrop != null) {
                     player.inventory.remove(itemToDrop);
                     player.decisionConsequence.put(itemNameToDrop, 0);
-                    player.currentRoom.allItems.add(itemToDrop);
+                    player.getCurrentRoom().allItems.add(itemToDrop);
                     System.out.println("You have dropped a " + itemToDrop.getName() + ". Move forward.");
                 } else {
                     System.out.println("Item not found in your inventory.");
