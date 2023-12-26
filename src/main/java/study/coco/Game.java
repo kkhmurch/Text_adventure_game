@@ -183,8 +183,16 @@ public class Game {
                     System.out.println("get back to the room where you didn't decide on the item and make your mind.");
                 }
             }
+            if (input.startsWith("t " )) {
+                String itemName = input.substring(2);
+                player.take(itemName);
+                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                    player.lastOutput();
+                }
+                continue;
+            }
 
-            if (input.startsWith("take ")) {
+            if (input.startsWith("take " )) {
                 String itemName = input.substring(5);
                 player.take(itemName);
                 if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
@@ -192,6 +200,16 @@ public class Game {
                 }
                 continue;
             }
+
+            if (input.startsWith("l ")) {
+                String itemName = input.substring(2);
+                player.leave(itemName);
+                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
+                    player.lastOutput();
+                }
+                continue;
+            }
+
             if (input.startsWith("leave ")) {
                 String itemName = input.substring(6);
                 player.leave(itemName);
@@ -223,6 +241,30 @@ public class Game {
                 }
                 continue;
             }
+            if (input.startsWith("d ")) {
+                String itemNameToDrop = input.substring(2);
+                player.lastAction = "drop";
+
+                // Find the item in the inventory
+                Artefact itemToDrop = null;
+                for (Artefact item : player.inventory) {
+                    if (item.getName().equalsIgnoreCase(itemNameToDrop)) {
+                        itemToDrop = item;
+                        break;
+                    }
+                }
+
+                if (itemToDrop != null) {
+                    player.inventory.remove(itemToDrop);
+                    player.decisionConsequence.put(itemNameToDrop, 0);
+                    player.currentRoom.allItems.add(itemToDrop);
+                    System.out.println("You have dropped a " + itemToDrop.getName() + ". Move forward.");
+                } else {
+                    System.out.println("Item not found in your inventory.");
+                }
+                continue;
+            }
+
             if (input.startsWith("inventory")) {
                 if (!player.inventory.isEmpty()) {
                     for (Artefact item : player.inventory) {
@@ -233,25 +275,22 @@ public class Game {
                 }
                 continue;
             }
+            if (input.startsWith("i")) {
+                if (!player.inventory.isEmpty()) {
+                    for (Artefact item : player.inventory) {
+                        System.out.print(item.getName());
+                    }
+                } else {
+                    System.out.println("Empty");
+                }
+                continue;
+            }
+
             if (input.startsWith("hashMap")) {
                 System.out.println(player.decisionConsequence);
                 continue;
             }
-//            if (input.startsWith("yes")) {
-//                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
-//                    System.out.println("WON!!!");
-//                    continue;
-//                }
-//            }
-//            if (input.startsWith("no")) {
-//                if (player.currentRoom.getName().equalsIgnoreCase("the room of Anna Akhmatova")) {
-//                    System.out.println("GAME OVER!!!");
-//                    continue;
-//                }
-//            }
-
             player.go(input);
-
 
         }
 
