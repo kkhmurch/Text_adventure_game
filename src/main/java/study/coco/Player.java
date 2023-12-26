@@ -113,9 +113,9 @@ public class Player {
             if (dropEverything) {
                 // Clear the inventory
                 inventory.clear();
-                System.out.println("You decided to drop everything. Congratulations! You have won the game.");
+                System.out.println("You decided to drop everything. Congratulations! You have won the game. During the rummage you faced difficult moral choices but you remained a fair-minded human being. ");
             } else {
-                System.out.println("You decided to keep the items. Game over. You have lost.");
+                System.out.println("You decided to keep the items. Game over. You have lost your dignity.");
             }
 
     }

@@ -22,6 +22,7 @@ public class Game {
         System.out.println(Ansi.ansi().a(ITALIC).a("Be friends and help your comrade, report enemies and wrongdoers! ").reset());
         System.out.println("Go ahead and be considerable.");
 
+        System.out.println("type " + Ansi.ansi().a(ITALIC).a("help ").reset() + "to take a look on the commands you can use.");
 
         System.out.println("type " + Ansi.ansi().a(ITALIC).a("enter ").reset() + "to enter the building.");
 
@@ -272,7 +273,7 @@ public class Game {
             if (input.startsWith("inventory")) {
                 if (!player.inventory.isEmpty()) {
                     for (Artefact item : player.inventory) {
-                        System.out.print(item.getName());
+                        System.out.println(item.getName());
                     }
                 } else {
                     System.out.println("Empty");
@@ -282,11 +283,27 @@ public class Game {
             if (input.startsWith("i")) {
                 if (!player.inventory.isEmpty()) {
                     for (Artefact item : player.inventory) {
-                        System.out.print(item.getName());
+                        System.out.println(item.getName());
                     }
                 } else {
                     System.out.println("Empty");
                 }
+                continue;
+            }
+
+            if(input.startsWith("help")){
+                System.out.println("""
+                        [t] or [take] + full name of the object - if you decide to use that object against the wrongdoer
+                        [l] or [leave] + full name of the object - if you decide that the evidence is not enough to arrest the wrongdoer
+                        [d] or [drop] + full name of the object - if you have taken an object but changed your mind and now want to get rid of it from your inventory
+                        [i] or [inventory] - show all the items you have taken
+                        [help] - show the helping window with the commands
+                        [n] - go to the north
+                        [s] - go to the south
+                        [w] - go to the west
+                        [e] - go to the east
+                        [enter] - used once to enter the building in the beginning of the game
+                        [examine] - used every time after entering a room to get the info about the location and the possible evidence""");
                 continue;
             }
 
